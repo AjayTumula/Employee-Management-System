@@ -1,0 +1,12 @@
+.login-page {
+    background-color: aliceblue;
+}
+
+.login-form {
+    background-color: white;
+}
+
+.auth-change span {
+    cursor: pointer;
+    font-weight: bold;
+}
