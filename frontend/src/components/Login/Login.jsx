@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import './Login.css'
-import UserValidation from '../UserValidation';
-
 
 const Login = () => {
 
@@ -13,7 +12,7 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:3000/auth/login")
+        axios.post("http://localhost:3000/auth/login", {email, name, password})
         .then(result => console.log(result))
         .catch(error => console.log(error))
     }
