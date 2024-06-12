@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './Login.css'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -8,18 +9,29 @@ const Login = () => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [loginState, setloginState] = useState("Log in");
-    
+    const navigate = useNavigate();
+    const[error, setError] = useState(null)
 
+    axios.defaults.withCredentials = true;
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.post("http://localhost:3000/auth/login", {email, name, password})
-        .then(result => console.log(result))
+        .then(result => {
+            if(result.data.loginStatus) {
+                navigate('/dashboard')
+            } else {
+                setError(result.data.Error)
+            }
+        })
         .catch(error => console.log(error))
     }
   
   return (
     <div className='d-flex justify-content-center align-items-center vh-100 login-page'>
         <div className='p-3 rounded w-25 border login-form'>
+        <div className='text-warning'>
+            {error && error}
+        </div>
             <h2 className='text-center'>Login</h2>
             <form action="" onSubmit={handleSubmit}>
                 {loginState === "Register" ? 
