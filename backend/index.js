@@ -1,4 +1,4 @@
-import { UserRouter } from "./Routes/UserLogin.js";
+import { UserRouter } from "./Routes/UserRouter.js";
 import express from 'express';
 import cors from 'cors'
 
@@ -9,6 +9,7 @@ app.use(cors({
     credentials: true
 }    
 ));
+
 app.use(express.json())
 app.use('/auth', UserRouter)
 
