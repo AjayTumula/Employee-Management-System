@@ -1,27 +1,19 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Dashboard = () => {
   return (
     <div className="container-fluid">
       <div className="flex-nowrap">
-      <div>
-          <div className="p-2 d-flex justify-content-center shadow">
-            <h4>Emoployee Management System</h4>
-          </div>
-          <Outlet />
+        <div className="p-3 d-flex  justify-content-center">
+          <h4>Emoployee Management System</h4>
         </div>
-        <div className="mt-30 bg-dark">
-          <div className="d-flex flex-row justify-content-space-between text-white">
-            <Link
-              to="/dashboard"
-              className="d-flex  pb-3  mt-md-3 me-md-auto text-white text-decoration-none"
-            >
-              <span className="fs-5 fw-bolder d-none d-sm-inline">EMS</span>
-            </Link>
+
+        <div>
+          <div>
             <ul
-              className="d-flex flex-row nav nav-pills m-0"
+              className="d-flex flex-row justify-content-around fs-5 fw-bold nav nav-pills m-0 bg-dark"
               id="menu"
             >
               <li>
@@ -47,12 +39,10 @@ const Dashboard = () => {
                   to="/dashboard/department"
                   className="nav-link px-0 align-middle text-white"
                 >
-                  <span className="ms-2 d-none d-sm-inline">
-                    Department
-                  </span>
+                  <span className="ms-2 d-none d-sm-inline">Department</span>
                 </Link>
               </li>
-              
+
               <li>
                 <Link
                   to="/dashboard/profile"
@@ -68,8 +58,10 @@ const Dashboard = () => {
               </li>
             </ul>
           </div>
+          <div>
+            <Outlet />
+          </div>
         </div>
-        
       </div>
     </div>
   );
