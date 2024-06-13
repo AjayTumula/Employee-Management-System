@@ -9,6 +9,7 @@ import Employee from './components/Employee.jsx'
 import Department from './components/Department.jsx'
 import Profile from './components/Profile.jsx'
 import AddDepartment from './components/AddDepartment.jsx'
+import AddEmployee from './components/AddEmployee.jsx'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
           <Route path='/dashboard/department' element={<Department />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
           <Route path='/dashboard/add_department' element={<AddDepartment />}></Route>
+          <Route path='/dashboard/add_employee' element={<AddEmployee />}></Route>
         </Route>  
       </Routes>
      </BrowserRouter>
