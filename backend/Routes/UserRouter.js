@@ -25,4 +25,20 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/department', (req, res) => {
+    const sql = "SELECT * FROM department";
+    connection.query(sql, (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"})
+            return res.json({Status: true, Result: result})
+    })
+})
+
+router.post('/add_department', (req, res) => {
+    const sql = "INSERT INTO department (`name`) VALUES (?)";
+    connection.query(sql, [req.body.department], (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"})
+            return res.json({Status: true})
+    })
+})
+
 export {router as UserRouter}
