@@ -27,7 +27,7 @@ const AddDepartment = () => {
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor='department'><strong>Department:</strong></label>
-                    <input className='form-control rounded-0' type="text" name="department" 
+                    <input className='form-control rounded-0 mt-1' type="text" name="department" 
                         placeholder='Enter department'
                         onChange={(e) => setDepartment(e.target.value)}
                     /> 
