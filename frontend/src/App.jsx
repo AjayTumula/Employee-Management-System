@@ -5,6 +5,9 @@ import Login from './components/Login/Login.jsx'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Dashboard from './components/Dashboard.jsx'
 import Home from './components/Home.jsx'
+import Employee from './components/Employee.jsx'
+import Department from './components/Department.jsx'
+import Profile from './components/Profile.jsx'
 
 function App() {
   
@@ -12,9 +15,13 @@ function App() {
     <>
      <BrowserRouter>
       <Routes>
-        <Route path='/auth/login' element={<Login />}/>
-        <Route path='/dashboard' element={<Dashboard />} />
-          <Route path="" element={<Home />}></Route>
+        <Route path='/auth/login' element={<Login />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='' element={<Home />}></Route>
+          <Route path='/dashboard/employee' element={<Employee />}></Route>
+          <Route path='/dashboard/department' element={<Department />}></Route>
+          <Route path='/dashboard/profile' element={<Profile />}></Route>
+        </Route>  
       </Routes>
      </BrowserRouter>
     </>
