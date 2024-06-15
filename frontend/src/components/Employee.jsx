@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -17,6 +18,20 @@ const Employee = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+    const handleDelete = async(id) => {
+    try {
+        const response = await axios.delete(`http://localhost:3000/auth/delete_employee/${id}`);
+        if(response.data.Status) {
+            window.location.reload();
+        } else {
+            alert(response.data.Error)
+        }
+    } catch (error) {
+        console.error('Error deleting employee:', error);
+        alert('Failed to delete employee. Please try again later.');
+      }
+  }
 
   return (
     <div className="px-5 mt-5">
@@ -54,7 +69,7 @@ const Employee = () => {
                   </Link>
                   <button
                     className="btn btn-warning btn-sm"
-                    onClick={hanldeDelete}
+                    onClick={() => handleDelete(data.id)}
                   >
                     Delete
                   </button>
