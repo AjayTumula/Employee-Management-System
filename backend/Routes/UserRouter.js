@@ -83,4 +83,13 @@ router.put('/edit_employee/:id', (req, res) => {
     })
 })
 
+router.delete('/delete_employee/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `delete from employee_data where id = ?`
+    connection.query(sql, [id], (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"+err})
+            return res.json({Status: true, Result: result})
+    })
+})
+
 export {router as UserRouter}
