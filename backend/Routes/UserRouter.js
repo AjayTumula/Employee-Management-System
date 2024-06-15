@@ -41,27 +41,46 @@ router.post('/add_department', (req, res) => {
     })
 })
 
- 
 
 router.post('/add_employee', (req, res) => {
-    
     const sql = `INSERT INTO employee_data (name, email, jobtitle, address, department_id) VALUES (?)`;  
-        const value = [
+        const values = [
             req.body.name,
             req.body.email,
             req.body.jobtitle,
             req.body.address,
             req.body.department_id,
         ];
-        // const departmentId = parseInt(req.body.department_id);
-    
-        // if (isNaN(departmentId) || !Number.isInteger(departmentId)) {
-        //     return res.status(400).json({ error: "Department ID must be a valid integer." });
-        // }
-        connection.query(sql, [value] , (err, result) => {
+        connection.query(sql, [values] , (err, result) => {
             if(err) return res.json(err)
                 return res.json({Status: true});
         })
+})
+
+router.get('/employee', (req, res) => {
+    const sql = `SELECT * FROM employee_data`;
+    connection.query(sql, (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"})
+            return res.json({Status: true, Result: result})
+    })
+})
+
+router.get('/employee/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM employee_data WHERE id = ?";
+    connection.query(sql, [id], (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"})
+            return res.json({Status: true, Result: result})
+    })
+})
+
+router.put('/edit_employee/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE employee_data set name= ?, email= ?, jobtitle= ?, address= ?, department_id= ? Where id= ?`;
+    connection.query(sql, [req.body.name, req.body.email, req.body.jobtitle, req.body.address, req.body.department_id, id], (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"})
+            return res.json({Status: true, Result: result})
+    })
 })
 
 export {router as UserRouter}
