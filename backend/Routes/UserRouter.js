@@ -41,4 +41,27 @@ router.post('/add_department', (req, res) => {
     })
 })
 
+ 
+
+router.post('/add_employee', (req, res) => {
+    
+    const sql = `INSERT INTO employee_data (name, email, jobtitle, address, department_id) VALUES (?)`;  
+        const value = [
+            req.body.name,
+            req.body.email,
+            req.body.jobtitle,
+            req.body.address,
+            req.body.department_id,
+        ];
+        // const departmentId = parseInt(req.body.department_id);
+    
+        // if (isNaN(departmentId) || !Number.isInteger(departmentId)) {
+        //     return res.status(400).json({ error: "Department ID must be a valid integer." });
+        // }
+        connection.query(sql, [value] , (err, result) => {
+            if(err) return res.json(err)
+                return res.json({Status: true});
+        })
+})
+
 export {router as UserRouter}
