@@ -20,14 +20,15 @@ const EditEmployee = () => {
         axios.get('http://localhost:3000/auth/department')
         .then(result => {
             if(result.data.Status){
+                console.log(result.data.Result)
                 setDepartment(result.data.Result)
             } else {
-                alert(result.data.Error)
+                console(result.data.Error)
             }
         }).catch(err => console.log(err))
 
 
-        axios.get('http://localhost:3000/auth/employee/' +id)
+        axios.get('http://localhost:3000/auth/employee/'+id)
         .then(result => {
             setEmployee({
                 ...employee,
@@ -38,17 +39,20 @@ const EditEmployee = () => {
                 department_id: result.data.Result[0].department_id,
             })
         }).catch(err => console.log(err))
+
+
     }, [])
 
-    const handleSubmit =(e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:3000/auth/edit_employee/' +id, employee)
+        axios.put('http://localhost:3000/auth/edit_employee/'+id, employee)
         .then(result => {
-           if(result.data.Status) {
-            navigate('/dashboard/employee')
-           } else {
-            alert(result.data.Error)
-           }
+            if(result.data.Status) {
+                console.log(result.data.Result)
+                navigate('/dashboard/employee')
+            } else {
+                console.log(result.data.Error)
+            }
         }).catch(err => console.log(err))
     }
 
@@ -118,7 +122,7 @@ const EditEmployee = () => {
               }
             >
               {department.map((data) => {
-                return <option value={data.name}>{data.name}</option>
+                return <option key={data.id} value={data.name}>{data.name}</option>
               })}
             </select>
           </div>
