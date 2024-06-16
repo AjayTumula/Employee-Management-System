@@ -101,8 +101,8 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, department_id: e.target.value })
               }
             >
-              {department.map((data) => {
-                return <option value={data.name}>{data.name}</option>
+              {department.map((data, id) => {
+                return <option key={id} value={data.name}>{data.name}</option>
               })}
             </select>
           </div>

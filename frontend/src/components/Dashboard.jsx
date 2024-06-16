@@ -30,7 +30,7 @@ const Dashboard = () => {
                   className="nav-link px-0 align-middle text-white"
                 >
                   <span className="ms-2 d-none d-sm-inline">
-                    Employees
+                     Manage Employees
                   </span>
                 </Link>
               </li>

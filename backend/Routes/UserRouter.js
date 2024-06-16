@@ -88,6 +88,22 @@ router.delete('/delete_employee/:id', (req, res) => {
     const sql = `delete from employee_data where id = ?`
     connection.query(sql, [id], (err, result) => {
         if(err) return res.json({Status: false, Error: "Query Error"+err})
+            return res.json({Status: true, Result: result}) 
+    })
+})
+
+router.get('/employee_count', (req, res) => {
+    const sql = "select count(id) as employee from employee_data";
+    connection.query(sql, (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"+err})
+            return res.json({Status: true, Result: result})
+    })
+})
+
+router.get('/department_count', (req, res) => {
+    const sql = "select count(id) as department from department";
+    connection.query(sql, (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error"+err})
             return res.json({Status: true, Result: result})
     })
 })
