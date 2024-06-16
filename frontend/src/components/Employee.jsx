@@ -8,8 +8,7 @@ const Employee = () => {
 
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/auth/employee")
+    axios.get("http://localhost:3000/auth/employee")
       .then((result) => {
         if (result.data.Status) {
           setEmployee(result.data.Result);
@@ -20,23 +19,18 @@ const Employee = () => {
       .catch((err) => console.log(err)); 
   }, []);
 
-  useEffect(() => {
-    handleDelete()
-  }, [])
 
-  const handleDelete = async(id) => { 
-    try {
-        const response = await axios.delete(`http://localhost:3000/auth/delete_employee/${id}`);
-        if (response.data.Status) {
-          window.location.reload(); 
+
+  const handleDelete = (id) => {
+    axios.delete('http://localhost:3000/auth/delete_employee/'+id)
+    .then(result => {
+        if(result.data.Status) {
+            window.location.reload()
         } else {
-          alert(response.data.Error); 
+            alert(result.data.Error)
         }
-      } catch (error) {
-        console.error('Error deleting employee:', error);
-        alert('Failed to delete employee. Please try again later.');
-      }
-    }
+    })
+  } 
    
   return (
     <div className="px-5 mt-5">
