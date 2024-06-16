@@ -14,7 +14,7 @@ router.post("/login", (req, res) => {
     if (result.length > 0) {
       const email = result[0].email;
       const token = jwt.sign(
-        { role: "user", email: email, id: result[0].id },
+        { email: email, id: result[0].id },
         "jwt_key",
         { expiresIn: "1d" }
       );
@@ -36,6 +36,7 @@ router.get("/department", (req, res) => {
     return res.json({ Status: true, Result: result });
   });
 });
+
 
 router.post("/add_department", (req, res) => {
   const sql = "INSERT INTO department (`name`) VALUES (?)";
@@ -122,5 +123,6 @@ router.get("/logout", (req, res) => {
   res.clearCookie("token");
   return res.json({ Status: true });
 });
+
 
 export { router as UserRouter };
