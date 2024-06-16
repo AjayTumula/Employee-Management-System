@@ -6,6 +6,7 @@ const Employee = () => {
   const [employee, setEmployee] = useState([]);
   const navigate = useNavigate()
 
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/auth/employee")
@@ -16,23 +17,27 @@ const Employee = () => {
           alert(result.data.Error);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); 
   }, []);
 
-    const handleDelete = async(id) => {
+  useEffect(() => {
+    handleDelete()
+  }, [])
+
+  const handleDelete = async(id) => { 
     try {
         const response = await axios.delete(`http://localhost:3000/auth/delete_employee/${id}`);
-        if(response.data.Status) {
-            window.location.reload();
+        if (response.data.Status) {
+          window.location.reload(); 
         } else {
-            alert(response.data.Error)
+          alert(response.data.Error); 
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error deleting employee:', error);
         alert('Failed to delete employee. Please try again later.');
       }
-  }
-
+    }
+   
   return (
     <div className="px-5 mt-5">
       <div className="d-flex justify-content-center">
