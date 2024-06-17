@@ -4,14 +4,18 @@ import React, { useEffect, useState } from "react";
 const Home = () => {
   const [employeeTotal, setEmployeeTotal] = useState();
   const [departmentTotal, setDepartmentTotal] = useState();
-  const [employee, setEmployee] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [inputSearch, setInputSearch] = useState("");
+  const [searchParam] = useState(["name"]);
+  const [filterParam, setFilterParam] = useState(["ALL"]);
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/auth/employee")
       .then((result) => {
         if (result.data.Status) {
-          setEmployee(result.data.Result);
+          setEmployees(result.data.Result);
+          console.log(result.data.Result);
         } else {
           alert(result.data.Error);
         }
@@ -40,6 +44,39 @@ const Home = () => {
     });
   };
 
+  function search(employees) {
+    return employees.filter((employee) => {
+      if (employee.department_id == filterParam) {
+        return searchParam.some((newEmployee) => {
+          return (
+            employee[newEmployee]
+              .toString()
+              .toLowerCase()
+              .indexOf(inputSearch.toLowerCase()) > -1
+          );
+        });
+      } else if (employee.jobtitle == filterParam) {
+        return searchParam.some((newEmployee) => {
+          return (
+            employee[newEmployee]
+              .toString()
+              .toLowerCase()
+              .indexOf(inputSearch.toLowerCase()) > -1
+          );
+        });
+      } else if (filterParam == "ALL") {
+        return searchParam.some((newEmployee) => {
+          return (
+            employee[newEmployee]
+              .toString()
+              .toLowerCase()
+              .indexOf(inputSearch.toLowerCase()) > -1
+          );
+        });
+      }
+    });
+  }
+
   return (
     <div>
       <div className="p-3 d-flex justify-content-around mt-3">
@@ -64,28 +101,61 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="mt-3">
-        <h3>List of Employees</h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Job Title</th>
-              <th>Department</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employee.map((data, id) => (
-              <tr key={id}>
-                <td>{data.name}</td>
-                <td>{data.email}</td>
-                <td>{data.jobtitle}</td>
-                <td>{data.department_id}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      <div className="d-flex justify-content-around mt-5">
+        <div>
+          <label htmlFor="search-form">
+            <input
+              type="search"
+              name="search-form"
+              id="search-form"
+              value={inputSearch}
+              placeholder="Search for employee"
+              onChange={(e) => setInputSearch(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="select">
+         <span>Filter by Department: </span>
+          <select
+            onChange={(e) => {
+              setFilterParam(e.target.value);
+            }}
+            className="custom-select"
+            aria-label="Filter Employees By Department"
+          >
+            <option value="ALL">ALL</option>
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="Developer">Developer</option>
+            <option value="Testing team">Testing team</option>
+          </select>
+          <span className="focus"></span>
+        </div>
+        <div className="select">
+        <span>Filter by Jobtitle: </span>
+          <select
+            onChange={(e) => {
+              setFilterParam(e.target.value);
+            }}
+            className="custom-select"
+            aria-label="Filter Employees By Jobtitle"
+          >
+            <option value="ALL">ALL</option>
+            <option value="Frontend developer">Frontend Developer</option>
+            <option value="Dev">Dev</option>
+          </select>
+          <span className="focus"></span>
+        </div>
+      </div>
+      <div className="">
+        <ul>
+          {search(employees).map((employee) => (
+            <li className="text">
+              <h2>{employee.name}</h2>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
