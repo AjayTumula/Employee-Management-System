@@ -13,28 +13,17 @@ import AddEmployee from './components/AddEmployee.jsx'
 import EditEmployee from './components/EditEmployee.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
+import Register from './components/Login/Register.jsx'
 
 function App() {
 
-  
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/verify')
-  //   .then(result => {
-  //     if(result.data.Status) {
-  //         if(!result.data.email){
-  //             navigate('/auth/login')
-  //         } else {
-  //             navigate('/dashboard')
-  //         } 
-  //     }
-  //   }).catch(err => console.log(err))
-  // }, [])
  
   return (
     <>
      <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />}></Route>
+        <Route path='/register' element={<Register />}></Route>
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/employee' element={<Employee />}></Route>
