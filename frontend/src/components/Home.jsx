@@ -104,6 +104,7 @@ const Home = () => {
 
       <div className="d-flex justify-content-around mt-5">
         <div>
+        <span className="fs-5 fw-medium">Search Employees: </span>
           <label htmlFor="search-form">
             <input
               type="search"
@@ -116,7 +117,7 @@ const Home = () => {
           </label>
         </div>
         <div className="select">
-         <span>Filter by Department: </span>
+         <span className="fs-5 fw-medium">Filter by Department: </span>
           <select
             onChange={(e) => {
               setFilterParam(e.target.value);
@@ -133,7 +134,7 @@ const Home = () => {
           <span className="focus"></span>
         </div>
         <div className="select">
-        <span>Filter by Jobtitle: </span>
+        <span className="fs-5 fw-medium">Filter by Jobtitle: </span>
           <select
             onChange={(e) => {
               setFilterParam(e.target.value);
@@ -148,11 +149,11 @@ const Home = () => {
           <span className="focus"></span>
         </div>
       </div>
-      <div className="">
+      <div className="mx-5 mt-5">
         <ul>
           {search(employees).map((employee) => (
-            <li className="text">
-              <h2>{employee.name}</h2>
+            <li className="fs-4">
+              {employee.name}
             </li>
           ))}
         </ul>
