@@ -1,58 +1,62 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditEmployee = () => {
+  const { id } = useParams();
 
-    const {id} = useParams()
-   
-    const [employee, setEmployee] = useState({
-        name: "",
-        email: "",
-        jobtitle: "",
-        department_id: "",
-        address: "",
-      });
-    const[department, setDepartment] = useState([]);
-    const navigate = useNavigate();
+  const [employee, setEmployee] = useState({
+    name: "",
+    email: "",
+    jobtitle: "",
+    department_id: "",
+    address: "",
+  });
+  const [department, setDepartment] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/auth/department')
-        .then(result => {
-            if(result.data.Status){
-                console.log(result.data.Result)
-                setDepartment(result.data.Result)
-            } else {
-                console(result.data.Error)
-            }
-        }).catch(err => console.log(err))
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/auth/department")
+      .then((result) => {
+        if (result.data.Status) {
+          console.log(result.data.Result);
+          setDepartment(result.data.Result);
+        } else {
+          console(result.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
 
+    axios
+      .get("http://localhost:3000/auth/employee/" + id)
+      .then((result) => {
+        console.log(result);
+        setEmployee({
+          ...employee,
+          name: result.data.Result[0].name,
+          email: result.data.Result[0].email,
+          jobtitle: result.data.Result[0].jobtitle,
+          address: result.data.Result[0].address,
+          department_id: result.data.Result[0].department_id,
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-        axios.get('http://localhost:3000/auth/employee/'+id)
-        .then(result => {
-            console.log(result)
-            setEmployee({
-                ...employee,
-                name: result.data.Result[0].name,
-                email: result.data.Result[0].email,
-                jobtitle: result.data.Result[0].jobtitle,
-                address: result.data.Result[0].address,
-                department_id: result.data.Result[0].department_id,
-            })
-        }).catch(err => console.log(err))
-    }, [])
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        axios.put('http://localhost:3000/auth/edit_employee/'+id, employee)
-        .then(result => {
-            if(result.data.Status) {
-                navigate('/dashboard/employee')
-            } else {
-                console.log(result.data.Error)
-            }
-        }).catch(err => console.log(err))
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put("http://localhost:3000/auth/edit_employee/" + id, employee)
+      .then((result) => {
+        if (result.data.Status) {
+          navigate("/dashboard/employee");
+        } else {
+          console.log(result.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center h-75">
@@ -120,7 +124,11 @@ const EditEmployee = () => {
               }
             >
               {department.map((data) => {
-                return <option key={data.id} value={data.name}>{data.name}</option>
+                return (
+                  <option key={data.id} value={data.name}>
+                    {data.name}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -135,7 +143,9 @@ const EditEmployee = () => {
               placeholder="H.No. 1234, City"
               value={employee.address}
               autoComplete="off"
-              onChange={(e) => setEmployee({...employee, address: e.target.value})}
+              onChange={(e) =>
+                setEmployee({ ...employee, address: e.target.value })
+              }
             />
           </div>
 
@@ -147,7 +157,7 @@ const EditEmployee = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditEmployee
+export default EditEmployee;

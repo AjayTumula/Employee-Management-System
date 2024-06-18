@@ -70,6 +70,10 @@ const Login = () => {
             </p>
           </div>
         </form>
+        <div className="auth-change">
+          <p>If your are an employee, please login here{" "}
+          <span onClick={() => navigate('/employee_login')}>Click here</span></p>
+        </div>
       </div>
     </div>
   );

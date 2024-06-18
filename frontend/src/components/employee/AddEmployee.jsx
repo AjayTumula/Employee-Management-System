@@ -26,19 +26,19 @@ const AddEmployee = () => {
       .catch((err) => console.log(err));
   }, []);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/auth/add_employee', employee)
-    .then(result => {
-        if(result.data.Status) {
-            navigate('/dashboard/employee')
+    axios
+      .post("http://localhost:3000/auth/add_employee", employee)
+      .then((result) => {
+        if (result.data.Status) {
+          navigate("/dashboard/employee");
         } else {
-            alert(result.data.Error)
+          alert(result.data.Error);
         }
-    })
-    .catch(err => console.log(err))
-  }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center h-75">
@@ -102,7 +102,11 @@ const AddEmployee = () => {
               }
             >
               {department.map((data, id) => {
-                return <option key={id} value={data.name}>{data.name}</option>
+                return (
+                  <option key={id} value={data.name}>
+                    {data.name}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -116,7 +120,9 @@ const AddEmployee = () => {
               id="inputAddress"
               placeholder="H.No. 1234, City"
               autoComplete="off"
-              onChange={(e) => setEmployee({...employee, address: e.target.value})}
+              onChange={(e) =>
+                setEmployee({ ...employee, address: e.target.value })
+              }
             />
           </div>
 

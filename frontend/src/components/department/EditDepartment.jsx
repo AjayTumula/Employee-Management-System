@@ -3,22 +3,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditDepartment = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const [department, setDepartment] = useState({
-    name: ""
+    name: "",
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/department/'+id)
-    .then(result => {
+    axios
+      .get("http://localhost:3000/auth/department/" + id)
+      .then((result) => {
         setDepartment({
-            ...department,
-            name: result.data.Result[0].name,   
-        })
-    }).catch(err => console.log(err))
-  }, [])
-   
+          ...department,
+          name: result.data.Result[0].name,
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

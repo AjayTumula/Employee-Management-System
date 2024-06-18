@@ -18,17 +18,17 @@ const Department = () => {
       .catch((err) => console.log(err));
   }, []);
 
-
   const handleDelete = (id) => {
-    axios.delete('http://localhost:3000/auth/delete_department/'+id)
-    .then(result => {
-        if(result.data.Status) {
-            window.location.reload()
+    axios
+      .delete("http://localhost:3000/auth/delete_department/" + id)
+      .then((result) => {
+        if (result.data.Status) {
+          window.location.reload();
         } else {
-            alert(result.data.Error)
+          alert(result.data.Error);
         }
-    })
-  } 
+      });
+  };
 
   return (
     <div className="px-5 mt-5">
