@@ -7,34 +7,28 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+ 
 
   axios.defaults.withCredentials = true;
-
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      axios
-        .post('http://localhost:3000/auth/login', {email, password})
-        .then((result) => {
-          if (result) {
-            // localStorage.setItem("token", response.data.token)
-            navigate("/dashboard");
-          }  else {
-            console.log("Failed")
-          }
-        })
-        .catch((error) => console.log(error));
-    };
-
-  
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3000/auth/login", {email, password})
+      .then(result => {
+        if(result.data.loginStatus) {
+            localStorage.setItem("valid", true)
+            navigate('/dashboard')
+        } else {
+            console.log(result.data.Error)
+        }
+    })
+    .catch(err => console.log(err))
+}
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 login-page">
       <div className="p-3 rounded w-25 border login-form">
-    
-        <h2 className="text-center">
-          Login
-        </h2>
+        <h2 className="text-center">Login</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
@@ -67,13 +61,13 @@ const Login = () => {
             type="submit"
             className="btn btn-success w-100 rounded-0 mb-3"
           >
-           Log in
+            Log in
           </button>
           <div className="mb-3 text-center auth-change">
-              <p>
-                Click here to,{" "}
-                <span onClick={() => navigate('/register')}>Register</span>
-              </p>
+            <p>
+              Click here to,{" "}
+              <span onClick={() => navigate("/register")}>Register</span>
+            </p>
           </div>
         </form>
       </div>

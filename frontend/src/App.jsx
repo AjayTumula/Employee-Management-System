@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Register from './components/Login/Register.jsx'
 import EditDepartment from './components/EditDepartment.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 function App() {
  
@@ -24,7 +25,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
-        <Route path='/dashboard' element={<Dashboard />}>
+        <Route path='/dashboard' element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+          }>
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/employee' element={<Employee />}></Route>
           <Route path='/dashboard/department' element={<Department />}></Route>
