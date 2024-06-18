@@ -25,15 +25,7 @@ const Login = () => {
         .catch((error) => console.log(error));
     };
 
-//   const userAuthenticeted = () => {
-//     axios.get("http://localhost:3000/isUserAuth", {
-//       headers: {
-//         "x-access-token": localStorage.getItem("token"),
-//       },
-//     }).then((response) => {
-//       console.log(response);
-//     });
-//   };
+  
 
 
   return (

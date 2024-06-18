@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 const Dashboard = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     axios.defaults.withCredentials = true;
     const handleLogout =() => {
         axios.get('http://localhost:3000/auth/logout')

@@ -30,6 +30,7 @@ const EditEmployee = () => {
 
         axios.get('http://localhost:3000/auth/employee/'+id)
         .then(result => {
+            console.log(result)
             setEmployee({
                 ...employee,
                 name: result.data.Result[0].name,
@@ -39,8 +40,6 @@ const EditEmployee = () => {
                 department_id: result.data.Result[0].department_id,
             })
         }).catch(err => console.log(err))
-
-
     }, [])
 
     const handleSubmit = (e) => {
@@ -48,7 +47,6 @@ const EditEmployee = () => {
         axios.put('http://localhost:3000/auth/edit_employee/'+id, employee)
         .then(result => {
             if(result.data.Status) {
-                console.log(result.data.Result)
                 navigate('/dashboard/employee')
             } else {
                 console.log(result.data.Error)

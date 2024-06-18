@@ -11,12 +11,12 @@ import Profile from './components/Profile.jsx'
 import AddDepartment from './components/AddDepartment.jsx'
 import AddEmployee from './components/AddEmployee.jsx'
 import EditEmployee from './components/EditEmployee.jsx'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Register from './components/Login/Register.jsx'
+import EditDepartment from './components/EditDepartment.jsx'
 
 function App() {
-
  
   return (
     <>
@@ -32,6 +32,7 @@ function App() {
           <Route path='/dashboard/add_department' element={<AddDepartment />}></Route>
           <Route path='/dashboard/add_employee' element={<AddEmployee />}></Route>
           <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />}></Route>
+          <Route path='/dashboard/edit_department/:id' element={<EditDepartment />}></Route>
         </Route>  
       </Routes>
      </BrowserRouter>
