@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3000/auth/employee")
+    axios
+      .get("http://localhost:3000/auth/employee")
       .then((result) => {
         if (result.data.Status) {
           setEmployee(result.data.Result);
@@ -16,22 +16,21 @@ const Employee = () => {
           alert(result.data.Error);
         }
       })
-      .catch((err) => console.log(err)); 
+      .catch((err) => console.log(err));
   }, []);
 
-
-
   const handleDelete = (id) => {
-    axios.delete('http://localhost:3000/auth/delete_employee/'+id)
-    .then(result => {
-        if(result.data.Status) {
-            window.location.reload()
+    axios
+      .delete("http://localhost:3000/auth/delete_employee/" + id)
+      .then((result) => {
+        if (result.data.Status) {
+          window.location.reload();
         } else {
-            alert(result.data.Error)
+          alert(result.data.Error);
         }
-    })
-  } 
-   
+      });
+  };
+
   return (
     <div className="px-5 mt-5">
       <div className="d-flex justify-content-center">

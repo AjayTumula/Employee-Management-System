@@ -14,15 +14,34 @@ import EditEmployee from './components/employee/EditEmployee.jsx'
 import Register from './components/auth/Register.jsx'
 import EditDepartment from './components/department/EditDepartment.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import EmployeeLogin from './components/auth/EmployeeLogin.jsx'
+import EmployeeProfile from './components/auth/EmployeeProfile.jsx'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/verify')
+    .then(result =>   {
+      if(result.data.Status){
+        if(result.data.role === "admin") {
+          navigate('/dashboard')
+        } else {
+          navigate('/employee_profile/'+result.data.id)
+        }
+      }
+    }).catch(err => console.log(err))
+  }, [])
  
   return (
     <>
-     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
+        <Route path='/employee_login'  element={<EmployeeLogin />}></Route>
+        <Route path='/employee_profile/:id' element={<EmployeeProfile/>}></Route>
         <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />
@@ -38,7 +57,6 @@ function App() {
           <Route path='/dashboard/edit_department/:id' element={<EditDepartment />}></Route>
         </Route>  
       </Routes>
-     </BrowserRouter>
     </>
   )
 }
