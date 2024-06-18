@@ -2,9 +2,25 @@ import express from "express";
 import connection from "../database.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import session from "express-session";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
+const app = express();
 const router = express.Router();
 const salt = 10;
+app.use(cookieParser());  
+app.use(session({
+    key: "userId",
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        expires: 60 * 60 * 24,
+    },
+})) 
+app.use(bodyParser.urlencoded({extended: true}));
 
 router.post("/register", (req, res) => {
   const sql = `INSERT INTO user_login (email, password, name) VALUES (?,?,?)`;
@@ -44,11 +60,11 @@ router.get("/isUserAuth", verifyJWT, (req, res) => {
   return res.json("You are authenticated Congrats:");
 });
 
-router.get("/login", (req, res) => {
+router.get("/dashboard", (req, res) => {
   if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
+    res.send({loggedIn: true, user: req.session.user});
   } else {
-    res.send({ loggedIn: false });
+    res.send({loggedIn: false});
   }
 });
 
@@ -65,9 +81,11 @@ router.post("/login", (req, res) => {
           const token = jwt.sign({id}, "jwtSecret", {
             expiresIn: "1d",
           });
-        //   req.session.user = result;
-        //   console.log(req.session.user);
-        return res.json({ auth: true, token: token, loginStatus: true });
+        //   console.log(req.session.name)
+        //   req.session.name = result[0].name;
+          req.session.user = result;
+          console.log(req.session.user);
+        return res.json({ auth: true, token: token});
         } else {
           res.json({auth: false, message: "Wrong username password"});
         }
@@ -88,11 +106,42 @@ router.get("/department", (req, res) => {
 
 router.post("/add_department", (req, res) => {
   const sql = "INSERT INTO department (`name`) VALUES (?)";
-  connection.query(sql, [req.body.department], (err, result) => {
+  connection.query(sql, [req.body.name], (err, result) => {
     if (err) return res.json({ Status: false, Error: "Query Error" });
     return res.json({ Status: true });
   });
 });
+
+router.get("/department/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM department WHERE id = ?";
+    connection.query(sql, [id], (err, result) => {
+      if (err) return res.json({ Status: false, Error: "Query Error" });
+      return res.json({ Status: true, Result: result });
+    });
+  });
+
+
+  router.put("/edit_department/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE department set name= ? Where id= ?`;
+    const value = [
+      req.body.name,
+    ];
+    connection.query(sql, [...value, id], (err, result) => {
+      if (err) return res.json({ Status: false, Error: "Query Error" + err });
+      return res.json({ Status: true, Result: result });
+    });
+  });
+
+  router.delete("/delete_department/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = "delete from department where id = ?";
+    connection.query(sql, [id], (err, result) => {
+      if (err) return res.json({ Status: false, Error: "Query Error" + err });
+      return res.json({ Status: true, Result: result });
+    });
+  });
 
 router.post("/add_employee", (req, res) => {
   const sql = `INSERT INTO employee_data (name, email, jobtitle, address, department_id) VALUES (?)`;
