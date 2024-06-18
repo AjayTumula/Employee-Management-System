@@ -4,17 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 const Dashboard = () => {
-
-    const navigate = useNavigate();
-    axios.defaults.withCredentials = true;
-    const handleLogout =() => {
-        axios.get('http://localhost:3000/auth/logout')
-        .then(result => {
-            if(result.data.Status) {
-                navigate('/')
-            }
-        })
-    }
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+  const handleLogout = () => {
+    axios.get("http://localhost:3000/auth/logout").then((result) => {
+      if (result.data.Status) {
+        localStorage.removeItem("valid")
+        navigate("/");
+      }
+    });
+  };
 
   return (
     <div className="container-fluid">
@@ -43,7 +42,7 @@ const Dashboard = () => {
                   className="nav-link px-0 align-middle text-white"
                 >
                   <span className="ms-2 d-none d-sm-inline">
-                     Manage Employees
+                    Manage Employees
                   </span>
                 </Link>
               </li>

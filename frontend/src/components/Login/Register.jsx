@@ -5,27 +5,26 @@ import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-        .post("http://localhost:3000/auth/register", {email, password, name})
-        .then((result) => {
-          navigate('/')
-          console.log(result)
-        })
-        .catch(err => console.log(err))
-    }
-
+      .post("http://localhost:3000/auth/register", { email, password, name })
+      .then((result) => {
+        navigate("/");
+        console.log(result);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 login-page">
       <div className="p-3 rounded w-25 border login-form">
         <h2 className="text-center">Register</h2>
         <form action="" onSubmit={handleSubmit}>
-        <div className="mb-3">
+          <div className="mb-3">
             <label htmlFor="name">
               <strong>Name</strong>
             </label>
@@ -74,8 +73,7 @@ const Register = () => {
           </button>
           <div className="mb-3 text-center auth-change">
             <p>
-              Already a user?{" "}
-              <span onClick={() => navigate('/')}>Log in</span>
+              Already a user? <span onClick={() => navigate("/")}>Log in</span>
             </p>
           </div>
         </form>
@@ -84,4 +82,4 @@ const Register = () => {
   );
 };
 
-export default Register
+export default Register;
