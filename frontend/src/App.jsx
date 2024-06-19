@@ -18,6 +18,8 @@ import EmployeeLogin from './components/auth/EmployeeLogin.jsx'
 import EmployeeProfile from './components/auth/EmployeeProfile.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const navigate = useNavigate();
@@ -57,6 +59,7 @@ function App() {
           <Route path='/dashboard/edit_department/:id' element={<EditDepartment />}></Route>
         </Route>  
       </Routes>
+      <ToastContainer />
     </>
   )
 }

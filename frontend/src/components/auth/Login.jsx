@@ -2,29 +2,72 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
- 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   axios.defaults.withCredentials = true;
-  const handleSubmit = (event) => {
-    event.preventDefault();
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  // Validate the form data
+  if (validate()) {
     axios
-      .post("http://localhost:3000/auth/login", {email, password})
-      .then(result => {
-        if(result.data.loginStatus) {
-            localStorage.setItem("valid", true)
-            navigate('/dashboard')
+      .post("http://localhost:3000/auth/login", formData)
+      .then((response) => {
+        console.log(response.data.auth)
+        if (response.data.auth) {
+          localStorage.setItem("valid", true)
+          // Login successful
+          navigate("/dashboard"); // Redirect to dashboard or any other page
+          console.log("Login successful:", response.data);
         } else {
-            console.log(result.data.Error)
+          // Login failed 
+          setErrors({
+            login: "Invalid email or password. Please check your credentials.",
+          });
+           alert("Login failed:", response.data.error);
         }
-    })
-    .catch(err => console.log(err))
+      })   
+  }
 }
 
+
+// toast.error("Error Notification !", {
+//   position: toast.POSITION.TOP_CENTER,
+// });
+
+const validate = () => {
+  let errors = {};
+  let isValid = true;
+
+  if (!formData.email.trim()) {
+    isValid = false;
+    errors.email = "Email is required";
+  }
+
+  if (!formData.password.trim()) {
+    isValid = false;
+    errors.password = "Password is required";
+  }
+
+  setErrors(errors);
+
+  return isValid;
+};
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 login-page">
       <div className="p-3 rounded w-25 border login-form">
@@ -32,7 +75,7 @@ const Login = () => {
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
-              <strong>Email</strong>
+              <strong>Email address</strong>
             </label>
             <input
               className="form-control rounded-0"
@@ -40,9 +83,10 @@ const Login = () => {
               name="email"
               autoComplete="off"
               placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
             />
+             {errors.email && <div className="text-danger">{errors.email}</div>}
           </div>
           <div className="mb-3">
             <label htmlFor="password">
@@ -53,9 +97,12 @@ const Login = () => {
               type="password"
               name="password"
               placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
             />
+            {errors.password && (
+              <div className="text-danger">{errors.password}</div>
+            )}
           </div>
           <button
             type="submit"
