@@ -1,5 +1,7 @@
+# Overview
 This project is the development and implementation of the Employee Management Software (EMS), a full-stack application aimed at managing employee records, departments, employee profiles, and implementing user authentication and authorization functionalities.
 
+# Functionality
 The EMS application encompasses the following key functionalities:
 
 1. Employee Management
@@ -18,12 +20,6 @@ Users should be able to view their personal details and employment information.
 Jwt is used to implement user registration and login functionality with authentication and authorization controls.
 
 
-Technical Specifications:
+# Technical Specifications:
 
-The EMS application was developed using the following technologies:
-
- # UI Framework: React JS 
- Styling: Bootstrap
- Routing: React Router DOM
- Backend: Express JS for building REST APIs
- Database: MySQL
+The EMS application was developed using the following technologies: UI Framework: React JS  Styling: Bootstrap Routing: React Router DOM Backend: Express JS for building REST APIs Database: MySQL
