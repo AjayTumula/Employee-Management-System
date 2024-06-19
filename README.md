@@ -22,4 +22,9 @@ Jwt is used to implement user registration and login functionality with authenti
 
 # Technical Specifications:
 
-The EMS application was developed using the following technologies: UI Framework: React JS  Styling: Bootstrap Routing: React Router DOM Backend: Express JS for building REST APIs Database: MySQL
+The EMS application was developed using the following technologies: 
+UI Framework: React JS  
+Styling: Bootstrap 
+Routing: React Router DOM 
+Backend: Express JS for building REST APIs 
+Database: MySQL
