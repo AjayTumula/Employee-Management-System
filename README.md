@@ -1,0 +1,1 @@
+This project is the development and implementation of the Employee Management Software (EMS), a full-stack application aimed at managing employee records, departments, employee profiles, and implementing user authentication and authorization functionalities.
