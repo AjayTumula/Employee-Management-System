@@ -25,44 +25,70 @@ app.use(
 );
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.post("/register", (req, res) => {
-  const sql = `INSERT INTO user_login (email, password, name) VALUES (?,?,?)`;
-  const password = req.body.password;
-  bcrypt.hash(password, salt, (err, hash) => {
-    if(err) return res.json({Status: false, Error: "Query Error"})
-    connection.query(
-      sql,
-      [req.body.email, hash, req.body.name],
-      (err, result) => {
-        if(err) return res.json({Status: false, Error: err})
-            return res.json({Status: true, Result: result})
-      }
-    );
-  });
-});
-
-router.post("/login", (req, res) => {
-  const sql = `SELECT * FROM user_login WHERE email = ?`;
-  connection.query(sql, [req.body.email], (err, result) => {
-    if (err) return res.json({ loginStatus: false, Error: "Query error" });
-    if (result.length > 0) {
-        console.log(result)
-        bcrypt.compare(req.body.password, result[0].password, (err, response)=> {
-            if (err) return res.json({ loginStatus: false, Error: "wrong password" });
-            if(response) {
-                const email = result[0].email;
-                const token = jwt.sign({ role:"admin", email: email, id: result[0].id }, "jwtSecret", {
-                  expiresIn: "1d",
-                });
-                res.cookie("token", token);
-                res.json({ loginStatus: true });
-            }
-        }) 
-    } else {
-      res.json({ loginStatus: false, Error: "Wrong username password" });
+router.post("/register", async (req, res) => {
+    const { email, password, username } = req.body;
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, salt);
+      // SQL query to insert user data into the database
+      const sql = `INSERT INTO user_login (email, password, name) VALUES (?,?,?)`;
+      const result = await new Promise((resolve, reject) => {
+        connection.query(sql, [email, hashedPassword, username], (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+      // Respond with success status and result
+      res.status(200).json({ Status: true, Result: result });
+    } catch (error) {
+      // Handle errors
+      console.error("Error during registration:", error);
+      res.status(500).json({ Status: false, Error: "Internal Server Error" });
     }
   });
-});
+
+  router.post("/login", (req, res) => {
+    const sql = `SELECT * FROM user_login WHERE email = ?`;
+    try {
+      connection.query(sql, [req.body.email], (err, result) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ auth: false, error: "Database error" });
+        }
+        if (result.length > 0) {
+          bcrypt.compare(req.body.password, result[0].password, (err, response) => {
+            if (err) {
+              console.error("Password comparison error:", err);
+              return res.status(500).json({ auth: false, error: "Internal server error" });
+            }
+            if (response) {
+              const email = result[0].email;
+              const token = jwt.sign({ role: "admin", email: email, id: result[0].id }, "jwtSecret", {
+                expiresIn: "1d",
+              });
+              res.cookie("token", token);
+              return res.json({ auth: true });
+            } else {
+              return res.status(401).json({ auth: false, error: "Wrong password" });
+            }
+          });
+        } else {
+          return res.status(404).json({ auth: false, error: "User not found" });
+        }
+      });
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      return res.status(500).json({ auth: false, error: "Unexpected error occurred" });
+    }
+  });
+
+  router.get("/login", (req, res) => {
+    const sql = "SELECT * FROM user_login WHERE email = ?"
+  })
+  
 
 router.get("/department", (req, res) => {
   const sql = "SELECT * FROM department";
