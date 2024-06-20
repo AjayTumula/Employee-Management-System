@@ -48,7 +48,6 @@ const Register = () => {
     }
   };
 
-
   const validate = () => {
     let errors = {};
     let isValid = true;

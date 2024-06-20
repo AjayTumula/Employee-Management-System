@@ -27,20 +27,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Route to check if email exists
 router.get("/check_email/:email", (req, res) => {
-    const email = req.params.email;
-    const sql = "SELECT * FROM user_login WHERE email = ?";
-    connection.query(sql, [email], (err, result) => {
-      if (err) {
-        console.error("Database error:", err);
-        return res.status(500).json({ error: "Database error" });
-      }
-      if (result.length > 0) {
-        return res.json({ exists: true });
-      } else {
-        return res.json({ exists: false });
-      }
-    });
+  const email = req.params.email;
+  const sql = "SELECT * FROM user_login WHERE email = ?";
+  connection.query(sql, [email], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    if (result.length > 0) {
+      return res.json({ exists: true });
+    } else {
+      return res.json({ exists: false });
+    }
   });
+});
 
 router.post("/register", async (req, res) => {
   const { email, password, username } = req.body;
@@ -70,8 +70,6 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ Status: false, Error: "Internal Server Error" });
   }
 });
-
-
 
 router.post("/login", (req, res) => {
   const sql = `SELECT * FROM user_login WHERE email = ?`;
@@ -121,6 +119,43 @@ router.post("/login", (req, res) => {
       .json({ auth: false, error: "Unexpected error occurred" });
   }
 });
+
+// Route to fetch logged-in user profile details
+router.get("/profile", verifyToken, (req, res) => {
+  const userId = req.user.id; // Extracted from verified token
+  const sql = "SELECT id, name, email FROM user_login WHERE id = ?";
+  connection.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const user = {
+      id: result[0].id,
+      name: result[0].name,
+      email: result[0].email,
+    };
+    res.json({ user });
+  });
+});
+
+// Function to verify JWT token
+function verifyToken(req, res, next) {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+  jwt.verify(token, "jwtSecret", (err, decoded) => {
+    if (err) {
+      console.error("JWT verification error:", err);
+      return res.status(403).json({ error: "Unauthorized" });
+    }
+    req.user = decoded; // Decoded payload contains user information
+    next();
+  });
+}
 
 router.get("/login", (req, res) => {
   const sql = "SELECT * FROM user_login WHERE email = ?";
