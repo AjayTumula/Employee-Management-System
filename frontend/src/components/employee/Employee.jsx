@@ -43,6 +43,7 @@ const Employee = () => {
         <table className="table">
           <thead>
             <tr>
+              <th>Employee id</th>
               <th>Name</th>
               <th>Email</th>
               <th>Job Title</th>
@@ -53,6 +54,7 @@ const Employee = () => {
           <tbody>
             {employee.map((data, id) => (
               <tr key={id}>
+                <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.email}</td>
                 <td>{data.jobtitle}</td>

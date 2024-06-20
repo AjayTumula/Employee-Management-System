@@ -103,7 +103,7 @@ const Home = () => {
 
       <div className="d-flex justify-content-around mt-5">
         <div>
-        <span className="fs-5 fw-medium">Search Employees: </span>
+          <span className="fs-5 fw-medium">Search Employees: </span>
           <label htmlFor="search-form">
             <input
               type="search"
@@ -116,7 +116,7 @@ const Home = () => {
           </label>
         </div>
         <div className="select">
-         <span className="fs-5 fw-medium">Filter by Department: </span>
+          <span className="fs-5 fw-medium">Filter by Department: </span>
           <select
             onChange={(e) => {
               setFilterParam(e.target.value);
@@ -133,7 +133,7 @@ const Home = () => {
           <span className="focus"></span>
         </div>
         <div className="select">
-        <span className="fs-5 fw-medium">Filter by Jobtitle: </span>
+          <span className="fs-5 fw-medium">Filter by Jobtitle: </span>
           <select
             onChange={(e) => {
               setFilterParam(e.target.value);
@@ -149,13 +149,32 @@ const Home = () => {
         </div>
       </div>
       <div className="mx-5 mt-5">
-        <ul>
-          {search(employees).map((employee) => (
-            <li className="fs-4">
-              {employee.name}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-3">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Employee id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job Title</th>
+                <th>Department</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {search(employees).map((employee) => (
+                <tr>
+                  <td>{employee.id}</td>
+                  <td>{employee.name}</td>
+                  <td>{employee.email}</td>
+                  <td>{employee.jobtitle}</td>
+                  <td>{employee.department_id}</td>
+                  <td>{employee.address}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
