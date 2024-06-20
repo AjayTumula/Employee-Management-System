@@ -12,6 +12,7 @@ const Register = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [emailExistsError, setEmailExistsError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -22,16 +23,28 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     // Validate the form data
     if (validate()) {
+      // Check if email already exists
       axios
-        .post("http://localhost:3000/auth/register", formData)
-        .then((result) => {
-          navigate("/");
-          console.log(result);
+        .get(`http://localhost:3000/auth/check_email/${formData.email}`)
+        .then((response) => {
+          if (response.data.exists) {
+            setEmailExistsError("Email already exists. Please use a different email.");
+          } else {
+            // Proceed with registration
+            axios
+              .post("http://localhost:3000/auth/register", formData)
+              .then((result) => {
+                navigate("/");
+                console.log(result);
+              })
+              .catch((err) => console.log(err));
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.error("Error checking email:", err);
+        });
     }
   };
 
@@ -122,6 +135,9 @@ const Register = () => {
               onChange={handleChange}
             />
             {errors.email && <div className="text-danger">{errors.email}</div>}
+            {emailExistsError && (
+              <div className="text-danger">{emailExistsError}</div>
+            )}
           </div>
           <div className="mb-3">
             <label htmlFor="password">

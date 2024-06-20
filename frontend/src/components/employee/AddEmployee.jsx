@@ -12,6 +12,7 @@ const AddEmployee = () => {
   });
   const [department, setDepartment] = useState([]);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     axios
@@ -26,9 +27,44 @@ const AddEmployee = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const validateForm = () => {
+    let errors = {};
+    let formIsValid = true;
+  
+    if (!employee.name.trim()) {
+      errors.name = "Name is required";
+      formIsValid = false;
+    }
+  
+    if (!employee.email.trim()) {
+      errors.email = "Email is required";
+      formIsValid = false;
+    }
+  
+    if (!employee.jobtitle.trim()) {
+      errors.jobtitle = "Job title is required";
+      formIsValid = false;
+    }
+  
+    if (!employee.department_id.trim()) {
+      errors.department_id = "Department is required";
+      formIsValid = false;
+    }
+  
+    if (!employee.address.trim()) {
+      errors.address = "Address is required";
+      formIsValid = false;
+    }
+  
+    setErrors(errors);
+    return formIsValid;
+  };
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    if (validateForm()) {
+      axios
       .post("http://localhost:3000/auth/add_employee", employee)
       .then((result) => {
         if (result.data.Status) {
@@ -38,6 +74,7 @@ const AddEmployee = () => {
         }
       })
       .catch((err) => console.log(err));
+    } 
   };
 
   return (
@@ -58,6 +95,7 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, name: e.target.value })
               }
             />
+            {errors.name && <div className="text-danger">{errors.name}</div>}
           </div>
           <div className="col-12">
             <label htmlFor="inputEmail4" className="form-label">
@@ -73,6 +111,7 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, email: e.target.value })
               }
             />
+            {errors.email && <div className="text-danger">{errors.email}</div>}
           </div>
           <div className="col-12">
             <label htmlFor="inputJobTitle" className="form-label">
@@ -88,6 +127,7 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, jobtitle: e.target.value })
               }
             />
+             {errors.jobtitle && <div className="text-danger">{errors.jobtitle}</div>}
           </div>
           <div className="col-12">
             <label htmlFor="department" className="form-label">
@@ -109,6 +149,7 @@ const AddEmployee = () => {
                 );
               })}
             </select>
+            {errors.department_id && <div className="text-danger">{errors.department_id}</div>}
           </div>
           <div className="col-12">
             <label htmlFor="inputAddress" className="form-label">
@@ -124,10 +165,11 @@ const AddEmployee = () => {
                 setEmployee({ ...employee, address: e.target.value })
               }
             />
+            {errors.address && <div className="text-danger">{errors.address}</div>}
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 mt-3">
               Add Employee
             </button>
           </div>

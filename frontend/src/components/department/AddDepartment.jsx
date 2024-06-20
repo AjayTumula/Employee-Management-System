@@ -6,17 +6,34 @@ const AddDepartment = () => {
   const [department, setDepartment] = useState({
     name: "",
   });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Validation: Check if department name is empty
+    if (!department.name.trim()) {
+      setError("Department name cannot be empty");
+      return;
+    }
+    // Validation: Check if department already exists
     axios
-      .post("http://localhost:3000/auth/add_department", department)
-      .then((result) => {
-        if (result.data.Status) {
-          navigate("/dashboard/department");
+      .get(`http://localhost:3000/auth/check_department/${department.name}`)
+      .then((response) => {
+        if (response.data.exists) {
+          setError("Department already exists");
         } else {
-          alert(result.data.Error);
+          // Department does not exist, proceed with adding
+          axios
+            .post("http://localhost:3000/auth/add_department", department)
+            .then((result) => {
+              if (result.data.Status) {
+                navigate("/dashboard/department");
+              } else {
+                alert(result.data.Error);
+              }
+            })
+            .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
@@ -36,8 +53,12 @@ const AddDepartment = () => {
               type="text"
               id="inputName"
               placeholder="Enter department"
-              onChange={(e) => setDepartment({...department, name: e.target.value})}
+              onChange={(e) => {
+                setDepartment({ ...department, name: e.target.value });
+                setError("");
+              }}
             />
+              {error && <div className="text-danger mt-1">{error}</div>}
           </div>
           <button
             type="submit"
