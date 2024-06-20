@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Department = () => {
   const [department, setDepartment] = useState([]);
+  const [departmentTotal, setDepartmentTotal] = useState();
 
   useEffect(() => {
     axios
@@ -16,6 +17,12 @@ const Department = () => {
         }
       })
       .catch((err) => console.log(err));
+
+      axios.get("http://localhost:3000/auth/department_count").then((result) => {
+        if (result.data.Status) {
+          setDepartmentTotal(result.data.Result[0].department);
+        }
+      });
   }, []);
 
   const handleDelete = (id) => {
@@ -32,9 +39,21 @@ const Department = () => {
 
   return (
     <div className="px-5 mt-5">
-      <div className="d-flex justify-content-center">
+     <div className="d-flex flex-column align-items-center">
+        <div className="d-flex justify-content-center">
         <h3>Department List</h3>
-      </div>
+        </div>
+        <div className="px-3 pt-2 pb-3 border shadow-sm w-25 mt-3">
+          <div className="text-center pb-1">
+            <h4>Department</h4>
+          </div>
+          <hr />
+          <div className="d-flex justify-content-between">
+            <h5>Total:</h5>
+            <h5>{departmentTotal}</h5>
+          </div>
+        </div>
+    </div>
       <Link to="/dashboard/add_department" className="btn btn-success">
         Add Department
       </Link>
