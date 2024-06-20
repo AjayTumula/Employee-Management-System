@@ -31,9 +31,9 @@ Jwt is used to implement user registration and login functionality with authenti
 
 # Setup Instructions
 ## Prerequisites:
-•	Node.js and npm: Ensure Node.js which includes npm is installed. You can download it from nodejs.org.
-•	MySQL Database: Install MySQL Server and ensure it is running. You can download MySQL from mysql.com or use a cloud-based MySQL service.
-•	Git: Install Git for cloning the repository (optional if you download the code as a ZIP file).
+1.	Node.js and npm: Ensure Node.js which includes npm is installed. You can download it from nodejs.org.
+2.	MySQL Database: Install MySQL Server and ensure it is running. You can download MySQL from mysql.com or use a cloud-based MySQL service.
+3.	Git: Install Git for cloning the repository (optional if you download the code as a ZIP file).
 
 ## Step-by-Step Setup
 1. Clone the Repository
@@ -46,8 +46,8 @@ Jwt is used to implement user registration and login functionality with authenti
             	npm install
 
 2.2. Configure MySQL Database
-•	Create a MySQL database for your application.
-•	Modify the database configuration in backend/database.js to match your database credentials:
+2.2.1.	Create a MySQL database for your application.
+2.2.2.	Modify the database configuration in backend/database.js to match your database credentials:
           module.exports = {
             HOST: "localhost",
             USER: "your_username",
@@ -72,8 +72,8 @@ In your frontend code, ensure the API calls are directed to the correct backend 
 		        npm start
 This will start the frontend development server at http://localhost:5173.
 4. Testing the Application
-•	Open your web browser and navigate to http://localhost: 5173 to see the application running.
-•	Register a user, login, and ensure CRUD operations (if implemented) work correctly.
+4.1.	Open your web browser and navigate to http://localhost: 5173 to see the application running.
+4.2.	Register a user, login, and ensure CRUD operations (if implemented) work correctly.
 
 
 
