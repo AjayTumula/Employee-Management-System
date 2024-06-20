@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
-  const navigate = useNavigate();
+  const [employeeTotal, setEmployeeTotal] = useState();
 
   useEffect(() => {
     axios
@@ -17,6 +17,12 @@ const Employee = () => {
         }
       })
       .catch((err) => console.log(err));
+
+    axios.get("http://localhost:3000/auth/employee_count").then((result) => {
+      if (result.data.Status) {
+        setEmployeeTotal(result.data.Result[0].employee);
+      }
+    });
   }, []);
 
   const handleDelete = (id) => {
@@ -33,9 +39,23 @@ const Employee = () => {
 
   return (
     <div className="px-5 mt-5">
-      <div className="d-flex justify-content-center">
+    <div className="d-flex flex-column align-items-center">
+        <div className="d-flex justify-content-center">
         <h3>Employee List</h3>
-      </div>
+        </div>
+        <div className="px-3 pt-2 pb-3 border shadow-sm w-25 mt-3">
+          <div className="text-center pb-1">
+            <h4>Employee</h4>
+          </div>
+          <hr />
+          <div className="d-flex justify-content-between">
+            <h5>Total:</h5>
+            <h5>{employeeTotal}</h5>
+          </div>
+        </div>
+    </div>
+      
+      
       <Link to="/dashboard/add_employee" className="btn btn-success">
         Add Employee
       </Link>
