@@ -8,6 +8,7 @@ const Home = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [searchParam] = useState(["name"]);
   const [filterParam, setFilterParam] = useState(["ALL"]);
+  const [departments, setDepartments] = useState([])
 
   useEffect(() => {
     axios
@@ -20,7 +21,17 @@ const Home = () => {
         }
       })
       .catch((err) => console.log(err));
+
+      axios.get("http://localhost:3000/auth/department")
+      .then((result) => {
+        if(result.data.Status) {
+            setDepartments(result.data.Result);
+        } else {
+            alert(result.data.Error)
+        }
+      })
   }, []);
+
 
   useEffect(() => {
     employeeCount();
@@ -124,11 +135,12 @@ const Home = () => {
             className="custom-select"
             aria-label="Filter Employees By Department"
           >
-            <option value="ALL">ALL</option>
-            <option value="IT">IT</option>
-            <option value="HR">HR</option>
-            <option value="Developer">Developer</option>
-            <option value="Testing team">Testing team</option>
+          <option value="ALL">ALL</option>
+            {departments.map((dept) => (
+            <option key={dept.id} value={dept.name}>
+                {dept.name}
+            </option>
+            ))}    
           </select>
           <span className="focus"></span>
         </div>
@@ -142,6 +154,11 @@ const Home = () => {
             aria-label="Filter Employees By Jobtitle"
           >
             <option value="ALL">ALL</option>
+            {employees.map((emp) => (
+                <option key={emp.id} value={emp.jobtitle}>
+                    {emp.jobtitle}
+                </option>
+            ))}
             <option value="Frontend developer">Frontend Developer</option>
             <option value="Dev">Dev</option>
           </select>
