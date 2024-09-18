@@ -5,10 +5,13 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import verifyToken from "../middleware.js";
 
 const app = express();
 app.use(express.json());
 const router = express.Router();
+
+
 const salt = 10;
 app.use(cookieParser());
 app.use(
@@ -141,21 +144,7 @@ router.get("/profile", verifyToken, (req, res) => {
   });
 });
 
-// Function to verify JWT token
-function verifyToken(req, res, next) {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.status(403).json({ error: "Unauthorized" });
-  }
-  jwt.verify(token, "jwtSecret", (err, decoded) => {
-    if (err) {
-      console.error("JWT verification error:", err);
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-    req.user = decoded; // Decoded payload contains user information
-    next();
-  });
-}
+
 
 router.get("/login", (req, res) => {
   const sql = "SELECT * FROM user_login WHERE email = ?";
