@@ -38,10 +38,7 @@ const Login = () => {
                   navigate("/dashboard");
                   console.log("Login successful:", response.data);
                 } else {
-                  setErrors({
-                    login:
-                      "Invalid email or password. Please check your credentials.",
-                  });
+                  setErrors(response.data.error);
                 }
               })
               .catch((error) => {
