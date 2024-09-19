@@ -1,6 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TextBox from "../components/Textbox";
+import Heading from "../components/Heading";
+import Button from "../components/Button";
+import BottomWarning from "../components/BottomWarning";
 
 const Register = () => {
 
@@ -99,72 +103,27 @@ const Register = () => {
 
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 login-page">
-      <div className="p-3 rounded w-25 border login-form">
-        <h2 className="text-center">Register</h2>
+    <div className="flex justify-center items-center h-screen bg-slate-50">
+      <div className="bg-sky-100 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
         <form action="" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="username">
-              <strong>Username</strong>
-            </label>
-            <input
-              className="form-control rounded-0"
-              type="text"
-              name="username"
-              autoComplete="off"
-              placeholder="Enter Name"
-              value={formData.username}
-              onChange={handleChange}
-            />
+          
+          <Heading label={'SignUp'}/>
+          <TextBox name={'username'} placeholder={'Name'} label={'Username'} value={formData.username} onChange={handleChange}/>
             {errors.username && (
               <div className="text-danger">{errors.username}</div>
             )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email address</strong>
-            </label>
-            <input
-              className="form-control rounded-0"
-              type="email"
-              name="email"
-              autoComplete="off"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
+          <TextBox name={'email'} label={'Email'} placeholder={'johndoe@example.com'} value={formData.email} onChange={handleChange}/>
             {errors.email && <div className="text-danger">{errors.email}</div>}
             {emailExistsError && (
               <div className="text-danger">{emailExistsError}</div>
             )}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password">
-              <strong>Password</strong>
-            </label>
-            <input
-              className="form-control rounded-0"
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+
+            <TextBox name={'password'} label={'Password'} type={'password'} placeholder={'Password'} value={formData.password} onChange={handleChange}/>
              {errors.password && (
               <div className="text-danger">{errors.password}</div>
             )}
-          </div>
-          <button
-            type="submit"
-            className="btn btn-success w-100 rounded-0 mb-3"
-          >
-            Register
-          </button>
-          <div className="mb-3 text-center auth-change">
-            <p>
-              Already a user? <span onClick={() => navigate("/")}>Log in</span>
-            </p>
-          </div>
+            <Button label={'Sign Up'}></Button>
+            <BottomWarning label={'Already a user?'} to={'/'} buttonText={'Log in'}/>
         </form>
       </div>
     </div>
