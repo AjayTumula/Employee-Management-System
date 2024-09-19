@@ -1,25 +1,25 @@
 
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Login from './components/auth/Login.jsx'
+import './App.css'  
+
 import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
-import Dashboard from './components/Dashboard.jsx'
-import Home from './components/Home.jsx'
-import Employee from './components/employee/Employee.jsx'
-import Department from './components/department/Department.jsx'
-import Profile from './components/Profile.jsx'
-import AddDepartment from './components/department/AddDepartment.jsx'
-import AddEmployee from './components/employee/AddEmployee.jsx'
-import EditEmployee from './components/employee/EditEmployee.jsx'
-import Register from './components/auth/Register.jsx'
-import EditDepartment from './components/department/EditDepartment.jsx'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
-import EmployeeLogin from './components/auth/EmployeeLogin.jsx'
-import EmployeeProfile from './components/auth/EmployeeProfile.jsx'
+import Dashboard from './Dashboard.jsx'
+import Home from './Home.jsx'
+import Employee from './employee/Employee.jsx'
+import Department from './department/Department.jsx'
+import Profile from './Profile.jsx'
+import AddDepartment from './department/AddDepartment.jsx'
+import AddEmployee from './employee/AddEmployee.jsx'
+import EditEmployee from './employee/EditEmployee.jsx'
+import Register from './auth/Register.jsx'
+import EditDepartment from './department/EditDepartment.jsx'
+import ProtectedRoute from './ProtectedRoute.jsx'
+import EmployeeLogin from './auth/EmployeeLogin.jsx'
+import EmployeeProfile from './auth/EmployeeProfile.jsx'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Login from './auth/Login.jsx'
 
 function App() {
   const navigate = useNavigate();

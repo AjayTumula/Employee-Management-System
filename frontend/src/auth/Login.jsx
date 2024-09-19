@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Login.css";
+// import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -88,10 +90,10 @@ const Login = () => {
     return isValid;
   };
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 login-page">
-      <div className="p-3 rounded w-25 border login-form">
-        <h2 className="text-center">Login</h2>
-        <form action="" onSubmit={handleSubmit}>
+    <div className="flex justify-center items-center h-screen bg-slate-300">
+      <div className="bg-white rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
+        <h2 className="text-center font-medium text-lg">Login</h2>
+        <form action="" className="flex flex-col" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email">
               <strong>Email address</strong>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import axios from "axios";
 
 const Dashboard = () => {
