@@ -3,6 +3,10 @@ import axios from "axios";
 // import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Heading from "../components/Heading";
+import TextBox from "../components/Textbox";
+import Button from "../components/Button";
+import BottomWarning from "../components/BottomWarning";
 
 const Login = () => {
   
@@ -13,11 +17,12 @@ const Login = () => {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+        setFormData((prevData) => ({
+          ...prevData,
+          [e.target.name]: e.target.value
+        }))
   };
 
   axios.defaults.withCredentials = true;
@@ -92,58 +97,17 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-300">
       <div className="bg-white rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
-        <h2 className="text-center font-medium text-lg">Login</h2>
         <form action="" className="flex flex-col" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email address</strong>
-            </label>
-            <input
-              className="form-control rounded-0"
-              type="email"
-              name="email"
-              autoComplete="off"
-              placeholder="Enter Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && <div className="text-danger">{errors.email}</div>}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password">
-              <strong>Password</strong>
-            </label>
-            <input
-              className="form-control rounded-0"
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {errors.password && (
-              <div className="text-danger">{errors.password}</div>
-            )}
-          </div>
-          <button
-            type="submit"
-            className="btn btn-success w-100 rounded-0 mb-3"
-          >
-            Log in
-          </button>
-          <div className="mb-3 text-center auth-change">
-            <p>
-              Click here to,{" "}
-              <span onClick={() => navigate("/register")}>Register</span>
-            </p>
-          </div>
+            <Heading label={'Login'}/>
+            <TextBox label={'Email'} name={'email'} placeholder={'johndoe@example.com'} value={formData.email} onChange={handleChange}/>
+              {errors.email && <div className="text-danger">{errors.email}</div>}
+            <TextBox label={'Password'} name={'password'} type={'password'} value={formData.password} onChange={handleChange}/>
+              {errors.password && (
+                <div className="text-danger">{errors.password}</div>
+              )}
+            <Button label={'Log In'}></Button>
+            <BottomWarning signupLabel={"Don't have an account?"} signupButtonText={'Sign Up'} signupRoute={'/register'} label={'If your are an employee, please login here'} to={'/employee_login'} buttonText={'Click here'}/>
         </form>
-        <div className="auth-change">
-          <p>
-            If your are an employee, please login here{" "}
-            <span onClick={() => navigate("/employee_login")}>Click here</span>
-          </p>
-        </div>
       </div>
     </div>
   );
