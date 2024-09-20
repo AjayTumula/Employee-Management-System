@@ -25,8 +25,8 @@ const EmployeeLogin = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 login-page">
-      <div className="p-3 rounded w-25 border login-form">
+    <div className="flex justify-center align-center h-screen">
+      <div className="bg-sky-100 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
         <h2 className="text-center">Employee Login</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">

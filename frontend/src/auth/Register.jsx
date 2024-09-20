@@ -25,33 +25,6 @@ const Register = () => {
     })
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Validate the form data
-    if (validate()) {
-      // Check if email already exists
-      axios
-        .get(`http://localhost:3000/auth/check_email/${formData.email}`)
-        .then((response) => {
-          if (response.data.exists) {
-            setEmailExistsError("Email already exists. Please use a different email.");
-          } else {
-            // Proceed with registration
-            axios
-              .post("http://localhost:3000/auth/register", formData)
-              .then((result) => {
-                navigate("/");
-                console.log(result);
-              })
-              .catch((err) => console.log(err));
-          }
-        })
-        .catch((err) => {
-          console.error("Error checking email:", err);
-        });
-    }
-  };
-
   const validate = () => {
     let errors = {};
     let isValid = true;
@@ -101,12 +74,41 @@ const Register = () => {
     return isValid;
   };
 
+  const handleSubmit = (event) => {
+    console.log("clicked")
+    event.preventDefault();
+    // Validate the form data
+    if (validate()) {
+      // Check if email already exists
+      axios
+        .get(`http://localhost:3000/auth/check_email/${formData.email}`)
+        .then((response) => {
+          if (response.data.exists) {
+            setEmailExistsError("Email already exists. Please use a different email.");
+          } else {
+            // Proceed with registration
+            axios
+              .post("http://localhost:3000/auth/register", formData)
+              .then((result) => {
+                navigate("/");
+                console.log(result);
+              })
+              .catch((err) => console.log(err));
+          }
+        })
+        .catch((err) => {
+          console.error("Error checking email:", err);
+        });
+    }
+  };
+
+  
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-50">
       <div className="bg-sky-100 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
-        <form action="" onSubmit={handleSubmit}>
-          
+        <form onSubmit={handleSubmit}>
           <Heading label={'SignUp'}/>
           <TextBox name={'username'} placeholder={'Name'} label={'Username'} value={formData.username} onChange={handleChange}/>
             {errors.username && (
@@ -123,8 +125,8 @@ const Register = () => {
               <div className="text-danger">{errors.password}</div>
             )}
             <Button label={'Sign Up'}></Button>
+            </form>
             <BottomWarning label={'Already a user?'} to={'/'} buttonText={'Log in'}/>
-        </form>
       </div>
     </div>
   );
