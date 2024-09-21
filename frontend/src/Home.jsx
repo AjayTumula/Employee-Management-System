@@ -90,93 +90,99 @@ const Home = () => {
 
   return (
     <div>
-      <div className="p-3 flex justify-around mt-3">
-        <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
-        <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={departmentTotal}/>
+      <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+            
+        <div className="p-3 flex justify-around mt-3">
+              <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
+              <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={departmentTotal}/>
+        </div>
+        
+        <div className="d-flex justify-content-around mt-5">
+              <div>
+                <span className="fs-5 fw-medium">Search Employees: </span>
+                <label htmlFor="search-form">
+                  <input
+                    type="search"
+                    name="search-form"
+                    id="search-form"
+                    value={inputSearch}
+                    placeholder="Search for employee"
+                    onChange={(e) => setInputSearch(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="select">
+                <span className="fs-5 fw-medium">Filter by Department: </span>
+                <select
+                  onChange={(e) => {
+                    setFilterParam(e.target.value);
+                  }}
+                  className="custom-select"
+                  aria-label="Filter Employees By Department"
+                >
+                <option value="ALL">ALL</option>
+                  {departments.map((dept) => (
+                  <option key={dept.id} value={dept.name}>
+                      {dept.name}
+                  </option>
+                  ))}    
+                </select>
+                <span className="focus"></span>
+              </div>
+              <div className="select">
+                <span className="fs-5 fw-medium">Filter by Jobtitle: </span>
+                <select
+                  onChange={(e) => {
+                    setFilterParam(e.target.value);
+                  }}
+                  className="custom-select"
+                  aria-label="Filter Employees By Jobtitle"
+                >
+                  <option value="ALL">ALL</option>
+                  {employees.map((emp) => (
+                      <option key={emp.id} value={emp.jobtitle}>
+                          {emp.jobtitle}
+                      </option>
+                  ))}
+                  <option value="Frontend developer">Frontend Developer</option>
+                  <option value="Dev">Dev</option>
+                </select>
+                <span className="focus"></span>
+              </div>
+            </div>
+            
+            <div className="mx-5 mt-5">
+              <div className="mt-3">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Employee id</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Job Title</th>
+                      <th>Department</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {search(employees).map((employee) => (
+                      <tr>
+                        <td>{employee.id}</td>
+                        <td>{employee.name}</td>
+                        <td>{employee.email}</td>
+                        <td>{employee.jobtitle}</td>
+                        <td>{employee.department_id}</td>
+                        <td>{employee.address}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div> 
+        </div>
+      </div>    
       </div>
-
-      <div className="d-flex justify-content-around mt-5">
-        <div>
-          <span className="fs-5 fw-medium">Search Employees: </span>
-          <label htmlFor="search-form">
-            <input
-              type="search"
-              name="search-form"
-              id="search-form"
-              value={inputSearch}
-              placeholder="Search for employee"
-              onChange={(e) => setInputSearch(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className="select">
-          <span className="fs-5 fw-medium">Filter by Department: </span>
-          <select
-            onChange={(e) => {
-              setFilterParam(e.target.value);
-            }}
-            className="custom-select"
-            aria-label="Filter Employees By Department"
-          >
-          <option value="ALL">ALL</option>
-            {departments.map((dept) => (
-            <option key={dept.id} value={dept.name}>
-                {dept.name}
-            </option>
-            ))}    
-          </select>
-          <span className="focus"></span>
-        </div>
-        <div className="select">
-          <span className="fs-5 fw-medium">Filter by Jobtitle: </span>
-          <select
-            onChange={(e) => {
-              setFilterParam(e.target.value);
-            }}
-            className="custom-select"
-            aria-label="Filter Employees By Jobtitle"
-          >
-            <option value="ALL">ALL</option>
-            {employees.map((emp) => (
-                <option key={emp.id} value={emp.jobtitle}>
-                    {emp.jobtitle}
-                </option>
-            ))}
-            <option value="Frontend developer">Frontend Developer</option>
-            <option value="Dev">Dev</option>
-          </select>
-          <span className="focus"></span>
-        </div>
-      </div>
-      <div className="mx-5 mt-5">
-        <div className="mt-3">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Employee id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Job Title</th>
-                <th>Department</th>
-                <th>Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              {search(employees).map((employee) => (
-                <tr>
-                  <td>{employee.id}</td>
-                  <td>{employee.name}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.jobtitle}</td>
-                  <td>{employee.department_id}</td>
-                  <td>{employee.address}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
   );
 };
 

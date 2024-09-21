@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 
 const Employee = () => {
   const [employee, setEmployee] = useState([]);
@@ -38,27 +39,19 @@ const Employee = () => {
   };
 
   return (
-    <div className="px-5 mt-5">
-    <div className="d-flex flex-column align-items-center">
-        <div className="d-flex justify-content-center">
-        <h3>Employee List</h3>
-        </div>
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25 mt-3">
-          <div className="text-center pb-1">
-            <h4>Employee</h4>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-            <h5>Total:</h5>
-            <h5>{employeeTotal}</h5>
-          </div>
-        </div>
-    </div>
-      
-      
+
+    <div class="p-4 sm:ml-64">
+      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div className="d-flex justify-content-center">
+            <h3>Employee List</h3>
+            </div>
+      <div className="p-3 flex justify-around mt-3">
+            <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
+      </div>
       <Link to="/dashboard/add_employee" className="btn btn-success">
         Add Employee
       </Link>
+      
       <div className="mt-3">
         <table className="table">
           <thead>
@@ -98,8 +91,9 @@ const Employee = () => {
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
+      </div> 
+   </div>
+</div>
   );
 };
 
