@@ -19,10 +19,10 @@ const Register = () => {
   const [emailExistsError, setEmailExistsError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData, 
-      [e.target.name]: e.target.value,
-    })
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value
+    }))
   }
 
   const validate = () => {

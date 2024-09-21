@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Card from "./components/Card";
 
 const Home = () => {
   const [employeeTotal, setEmployeeTotal] = useState();
@@ -89,27 +90,9 @@ const Home = () => {
 
   return (
     <div>
-      <div className="p-3 d-flex justify-content-around mt-3">
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
-          <div className="text-center pb-1">
-            <h4>Employee</h4>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-            <h5>Total:</h5>
-            <h5>{employeeTotal}</h5>
-          </div>
-        </div>
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
-          <div className="text-center pb-1">
-            <h4>Department</h4>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-between">
-            <h5>Total:</h5>
-            <h5>{departmentTotal}</h5>
-          </div>
-        </div>
+      <div className="p-3 flex justify-around mt-3">
+        <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
+        <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={departmentTotal}/>
       </div>
 
       <div className="d-flex justify-content-around mt-5">

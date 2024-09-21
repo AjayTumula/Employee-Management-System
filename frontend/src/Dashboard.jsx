@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-
 import axios from "axios";
 
 const Dashboard = () => {
@@ -18,30 +17,29 @@ const Dashboard = () => {
   return (
     <div className="container-fluid">
       <div className="flex-nowrap">
-        <div className="p-3 d-flex  justify-content-center">
-          <h4>Emoployee Management System</h4>
+        <div className="p-3 my-2 text-lg flex justify-center font-medium">
+          <h4>Employee Management System</h4>
         </div>
 
         <div>
           <div>
             <ul
-              className="d-flex flex-row justify-content-around fs-5 fw-bold nav nav-pills m-0 bg-dark"
+              className="flex flex-row py-2 justify-around text-lg font-bold space-x-4 m-0 bg-gray-800"
               id="menu"
             >
               <li>
                 <Link
                   to="/dashboard"
-                  className="nav-link text-white px-0 align-middle"
+                  
                 >
-                  <span className="ms-2 d-none d-sm-inline">Dashboard</span>
+                  <span className="ms-2 d-none d-sm-inline text-white hover:text-sky-200">Dashboard</span>
                 </Link>
               </li>
               <li>
                 <Link
                   to="/dashboard/employee"
-                  className="nav-link px-0 align-middle text-white"
                 >
-                  <span className="ms-2 d-none d-sm-inline">
+                  <span className="ms-2 d-none text-white d-sm-inline hover:text-sky-200">
                     Manage Employees
                   </span>
                 </Link>
@@ -49,23 +47,23 @@ const Dashboard = () => {
               <li>
                 <Link
                   to="/dashboard/department"
-                  className="nav-link px-0 align-middle text-white"
+                  
                 >
-                  <span className="ms-2 d-none d-sm-inline">Department</span>
+                  <span className="ms-2 d-none d-sm-inline text-white hover:text-sky-200">Department</span>
                 </Link>
               </li>
 
               <li>
                 <Link
                   to="/dashboard/profile"
-                  className="nav-link px-0 align-middle text-white"
+                  
                 >
-                  <span className="ms-2 d-none d-sm-inline">Profile</span>
+                  <span className="ms-2 d-none d-sm-inline text-white hover:text-sky-200">Profile</span>
                 </Link>
               </li>
               <li onClick={handleLogout}>
-                <Link className="nav-link px-0 align-middle text-white">
-                  <span className="ms-2 d-none d-sm-inline">Logout</span>
+                <Link>
+                  <span className="text-white hover:text-sky-200">Logout</span>
                 </Link>
               </li>
             </ul>

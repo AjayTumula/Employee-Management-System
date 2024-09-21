@@ -27,6 +27,25 @@ const Login = () => {
 
   axios.defaults.withCredentials = true;
 
+  const validate = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!formData.email.trim()) {
+      isValid = false;
+      errors.email = "Email is required";
+    }
+
+    if (!formData.password.trim()) {
+      isValid = false;
+      errors.password = "Password is required";
+    }
+
+    setErrors(errors);
+
+    return isValid;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Validate the form data
@@ -76,24 +95,7 @@ const Login = () => {
   //   position: toast.POSITION.TOP_CENTER,
   // });
 
-  const validate = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!formData.email.trim()) {
-      isValid = false;
-      errors.email = "Email is required";
-    }
-
-    if (!formData.password.trim()) {
-      isValid = false;
-      errors.password = "Password is required";
-    }
-
-    setErrors(errors);
-
-    return isValid;
-  };
+  
   return (
     <div className="flex justify-center items-center h-screen bg-slate-50">
       <div className="bg-sky-100 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
