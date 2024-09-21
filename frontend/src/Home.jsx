@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "./components/Card";
+import TextBox from "./components/Textbox";
 
 const Home = () => {
   const [employeeTotal, setEmployeeTotal] = useState();
@@ -98,19 +99,10 @@ const Home = () => {
               <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={departmentTotal}/>
         </div>
         
-        <div className="d-flex justify-content-around mt-5">
-              <div>
-                <span className="fs-5 fw-medium">Search Employees: </span>
-                <label htmlFor="search-form">
-                  <input
-                    type="search"
-                    name="search-form"
-                    id="search-form"
-                    value={inputSearch}
-                    placeholder="Search for employee"
-                    onChange={(e) => setInputSearch(e.target.value)}
-                  />
-                </label>
+        <div className="flex justify-around mt-5">
+              <div className="flex flex-row items-center">
+                <div className="text-lg font-medium">Search Employees: </div>
+                <TextBox className="ml-2" type={search} name={'search-form'} value={inputSearch} placeholder={'Search for employee'} onChange={(e) => setInputSearch(e.target.value)}/>
               </div>
               <div className="select">
                 <span className="fs-5 fw-medium">Filter by Department: </span>
