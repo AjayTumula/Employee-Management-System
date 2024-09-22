@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TextBox from "../components/Textbox";
 
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -83,98 +84,68 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="flex justify-content-center align-items-center h-75">
-      <div className="mt-5 p-3 rounded w-25 border">
+    <div className="flex justify-center items-center h-75">
+      <div className="mt-5 p-3 rounded w-25 border bg-slate-50 w-96">
         <h2 className="text-center">Add Employee</h2>
-        <form className="row g-1" onSubmit={handleSubmit}>
-          <div className="col-12">
-            <label htmlFor="inputName" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputName"
-              placeholder="Enter Name"
+        <form className="" onSubmit={handleSubmit}>
+          <div className="">
+            <TextBox label={'Name'} placeholder={'Enter employee name'}
               onChange={(e) =>
-                setEmployee({ ...employee, name: e.target.value })
-              }
-            />
+              setEmployee({ ...employee, name: e.target.value })}/>
             {errors.name && <div className="text-danger">{errors.name}</div>}
           </div>
-          <div className="col-12">
-            <label htmlFor="inputEmail4" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control rounded-0"
-              id="inputEmail4"
-              placeholder="Enter Email"
-              autoComplete="off"
-              onChange={(e) =>
-                setEmployee({ ...employee, email: e.target.value })
-              }
-            />
+
+          <div className="">
+            <TextBox label={'Email'} placeholder={'Enter employee email'}
+              type={'email'}
+             onChange={(e) =>
+              setEmployee({ ...employee, email: e.target.value })}/>
             {errors.email && <div className="text-danger">{errors.email}</div>}
           </div>
-          <div className="col-12">
-            <label htmlFor="inputJobTitle" className="form-label">
-              Job Title
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputJobTitle"
-              placeholder="Enter Job Title"
-              autoComplete="off"
-              onChange={(e) =>
-                setEmployee({ ...employee, jobtitle: e.target.value })
-              }
+
+          <div className="">
+            <TextBox label={'Job Title'} placeholder={'Enter employee job title'}
+            onChange={(e) =>
+              setEmployee({ ...employee, jobtitle: e.target.value })}
             />
              {errors.jobtitle && <div className="text-danger">{errors.jobtitle}</div>}
           </div>
-          <div className="col-12">
+
+          <div className="mt-2">
             <label htmlFor="department" className="form-label">
-              Department
+              Department:
             </label>
             <select
               name="department"
               id="department"
-              className="form-select"
+              className="border text-sm  w-60 border-slate-700 rounded ml-2"
               onChange={(e) =>
                 setEmployee({ ...employee, department_id: e.target.value })
               }
             >
               {department.map((data, id) => {
                 return (
-                  <option key={id} value={data.name}>
-                    {data.name}
-                  </option>
+                  
+                    <option key={id} value={data.name}>
+                      {data.name}
+                    </option>
+                  
                 );
               })}
             </select>
             {errors.department_id && <div className="text-danger">{errors.department_id}</div>}
           </div>
-          <div className="col-12">
-            <label htmlFor="inputAddress" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputAddress"
-              placeholder="H.No. 1234, City"
-              autoComplete="off"
-              onChange={(e) =>
-                setEmployee({ ...employee, address: e.target.value })
-              }
+
+          <div className="">
+            <TextBox label={'Address'} placeholder={'H.No. 1234, City'}
+            onChange={(e) =>
+              setEmployee({ ...employee, address: e.target.value })}
             />
             {errors.address && <div className="text-danger">{errors.address}</div>}
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary w-100 mt-3">
+            <button type="submit" className="bg-green-600 rounded mt-2 w-25 p-1 text-sm font-medium text-white">
               Add Employee
             </button>
           </div>

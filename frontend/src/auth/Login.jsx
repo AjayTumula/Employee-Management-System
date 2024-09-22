@@ -98,7 +98,7 @@ const Login = () => {
   
   return (
     <div className="flex justify-center items-center h-screen bg-slate-50">
-      <div className="bg-sky-100 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
+      <div className="bg-slate-50 rounded-lg w-[80%] sm:w-[50%] lg:w-[23%] text-center p-3">
         <form action="" className="flex flex-col" onSubmit={handleSubmit}>
             <Heading label={'Login'}/>
             <TextBox label={'Email'} name={'email'} placeholder={'johndoe@example.com'} value={formData.email} onChange={handleChange}/>

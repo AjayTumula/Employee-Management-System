@@ -47,7 +47,7 @@ const Employee = () => {
   return (
 
     <div class="p-4 sm:ml-64">
-      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div class="p-4 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
           <h3 className="flex justify-center text-lg font-medium">Employee List</h3>
       <div className="p-3 flex justify-around mt-3">
             <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
@@ -60,7 +60,7 @@ const Employee = () => {
       
       
       <div className="mt-3">
-        <table className="w-full border-collapse mr-7">
+        <table className="w-full border-collapse">
           <thead className="text-left">
             <tr>
               <th>Employee id</th>
@@ -69,6 +69,7 @@ const Employee = () => {
               <th>Job Title</th>
               <th>Department</th>
               <th>Address</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -80,7 +81,7 @@ const Employee = () => {
                 <td>{data.jobtitle}</td>
                 <td>{data.department_id}</td>
                 <td>{data.address}</td>
-                <td>
+                <td className="text-left w-16">
                   <div onClick={() => handleOptionClick(id)}>
                     <Icon iconName={'ellipsis'}/>
                   </div>
