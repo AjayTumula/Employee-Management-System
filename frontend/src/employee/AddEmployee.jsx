@@ -83,7 +83,7 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center h-75">
+    <div className="flex justify-content-center align-items-center h-75">
       <div className="mt-5 p-3 rounded w-25 border">
         <h2 className="text-center">Add Employee</h2>
         <form className="row g-1" onSubmit={handleSubmit}>
