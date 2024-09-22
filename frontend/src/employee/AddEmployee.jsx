@@ -86,7 +86,7 @@ const AddEmployee = () => {
   return (
     <div className="flex justify-center items-center h-75">
       <div className="mt-5 p-3 rounded w-25 border bg-slate-50 w-96">
-        <h2 className="text-center">Add Employee</h2>
+        <h2 className="text-center font-medium">Add Employee</h2>
         <form className="" onSubmit={handleSubmit}>
           <div className="">
             <TextBox label={'Name'} placeholder={'Enter employee name'}

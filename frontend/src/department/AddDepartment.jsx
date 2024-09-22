@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TextBox from "../components/Textbox";
 
 const AddDepartment = () => {
   const [department, setDepartment] = useState({
@@ -40,19 +41,12 @@ const AddDepartment = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center h-75">
-      <div className="mt-5 p-3 rounded w-25 border">
-        <h2>Add Department</h2>
+    <div className="flex justify-center items-center h-75">
+      <div className="mt-5 p-3 rounded w-25 border bg-slate-50 w-96">
+        <h2 className="text-center font-medium">Add Department</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="department">
-              <strong>Department:</strong>
-            </label>
-            <input
-              className="form-control rounded-0 mt-1"
-              type="text"
-              id="inputName"
-              placeholder="Enter department"
+            <TextBox label={'Department:'} placeholder={'Enter department name'}
               onChange={(e) => {
                 setDepartment({ ...department, name: e.target.value });
                 setError("");
@@ -62,7 +56,7 @@ const AddDepartment = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-success w-100 rounded-0 mb-3"
+            className="bg-green-600 rounded mt-2 w-25 p-1 text-sm font-medium text-white"
           >
             Add department
           </button>

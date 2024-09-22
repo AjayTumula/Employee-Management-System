@@ -61,34 +61,34 @@ const EditEmployee = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="mt-5 p-3 rounded w-25 border bg-slate-50 w-96">
+      <div className="mt-5 p-3 rounded border bg-slate-50 w-96">
         <h2 className="text-center">Edit Employee</h2>
         <form className="" onSubmit={handleSubmit}>
           
-            <TextBox label={'Name'} placeholder={'Enter employee name'}
+            <TextBox className="font-normal" label={'Name'} placeholder={'Enter employee name'}
             value={employee.name} onChange={(e) =>
               setEmployee({ ...employee, name: e.target.value })
             }/>
           
-          <TextBox label={'Email'} placeholder={'Enter employee email'}
+          <TextBox className="font-normal" label={'Email'} placeholder={'Enter employee email'}
             value={employee.email} onChange={(e) =>
               setEmployee({ ...employee, email: e.target.value })
             }/>
           
-          <TextBox label={'Job Title'} placeholder={'Enter job title'}
+          <TextBox className="font-normal" label={'Job Title'} placeholder={'Enter job title'}
           value={employee.jobtitle} onChange={(e) =>
             setEmployee({ ...employee, jobtitle: e.target.value })
           }/>
           
           
           <div className="">
-            <label htmlFor="department" className="form-label">
-              Department
+            <label htmlFor="department" className="font-medium">
+              Department:
             </label>
             <select
               name="department"
               id="department"
-              className="form-select"
+              className="font-normal ml-2"
               value={employee.department_id}
               onChange={(e) =>
                 setEmployee({ ...employee, department_id: e.target.value })
@@ -104,7 +104,7 @@ const EditEmployee = () => {
             </select>
           </div>
 
-          <TextBox label={'Address'} placeholder={'H.No. 1234, City'}
+          <TextBox className="font-normal" label={'Address'} placeholder={'H.No. 1234, City'}
           value={employee.address} onChange={(e) =>
             setEmployee({ ...employee, address: e.target.value })
           }/>

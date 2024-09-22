@@ -49,7 +49,7 @@ const Department = () => {
   return (
     <div className="p-4 sm:ml-64">
    
-   <div className="p-4 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
+   <div className="p-4 border-2 w-4/5 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
 
         
           <h3 className="flex justify-center text-lg font-medium">Department List</h3>

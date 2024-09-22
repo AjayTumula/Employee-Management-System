@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import TextBox from "../components/Textbox";
 
 const EditDepartment = () => {
   const { id } = useParams();
@@ -36,28 +37,20 @@ const EditDepartment = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center h-75">
-      <div className="mt-5 p-3 rounded w-25 border">
-        <h2>Edit Department</h2>
+    <div className="flex justify-center items-center h-75">
+      <div className="mt-5 p-3 rounded w-1/4 border bg-slate-50">
+        <h2 className="text-center font-medium">Edit Department</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="department">
-              <strong>Department:</strong>
-            </label>
-            <input
-              className="form-control rounded-0 mt-1"
-              type="text"
-              name="department"
-              placeholder="Enter department"
+          <div >
+            <TextBox className="font-normal" label={'Department:'} placeholder={'Enter department name'}
               value={department.name}
               onChange={(e) =>
                 setDepartment({ ...department, name: e.target.value })
-              }
-            />
+              }/>
           </div>
           <button
             type="submit"
-            className="btn btn-success w-100 rounded-0 mb-3"
+            className="bg-green-600 rounded mt-2 w-25 p-2 text-sm font-medium text-white"
           >
             Update department
           </button>
