@@ -92,8 +92,8 @@ const Home = () => {
 
   return (
     <div>
-      <div class="p-4 sm:ml-64">
-        <div class="p-2 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
+      <div className="p-4 sm:ml-64">
+        <div className="p-2 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
             
         <div className="p-3 flex justify-around mt-3">
               <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>

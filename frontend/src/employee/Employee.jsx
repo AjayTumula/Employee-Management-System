@@ -46,12 +46,13 @@ const Employee = () => {
 
   return (
 
-    <div class="p-4 sm:ml-64">
-      <div class="p-4 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
+    <div className="p-4 sm:ml-64">
+      <div className="p-4 border-2 border-gray-200 bg-slate-50 rounded-lg dark:border-gray-700">
           <h3 className="flex justify-center text-lg font-medium">Employee List</h3>
-      <div className="p-3 flex justify-around mt-3">
-            <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
-      </div>
+        <div className="p-3 flex justify-around mt-3">
+              <Card cardTitle={'Employee'} cardText={'Total:'} totalNumber={employeeTotal}/>
+        </div>
+
       <div className="bg-green-600 rounded-lg w-32 p-2 font-medium text-white">
         <Link to="/dashboard/add_employee">
           Add Employee

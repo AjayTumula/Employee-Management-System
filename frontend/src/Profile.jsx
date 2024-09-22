@@ -13,7 +13,7 @@ const Profile = () => {
     }, []);
 
     return (
-        <div className="mx-5 mt-5">
+        <div className="mx-5 mt-5 flex justify-center">
             <div className="mt-3">
                 {user ? (
                     <table className="table">
